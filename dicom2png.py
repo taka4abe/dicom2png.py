@@ -11,7 +11,7 @@ parser = argparse.ArgumentParser(
     This code depends on python3, pydicom, os, numpy, shutil, time and PIL.''',
     usage='dcm2png.py [options]')
 parser.add_argument('-S', '-16', action='store_true',
-                    help='use 16(sixteen)-bit scale, 0-66535. 16-bit image can only go with .png, gray scale image.')
+                    help='use 16(sixteen)-bit scale, 0-66535. 16-bit image can only go with .png, gray scale (one-channel) image.')
 parser.add_argument('-j', '-jpg', action='store_true',
                     help='change dicom to jpg')
 parser.add_argument('-g', '-gray', action='store_true',
@@ -24,7 +24,7 @@ parser.add_argument('-o', '-128', action='store_true',
                     help='save with 128x128 (One two eight) imaging matrix')
 parser.add_argument('-f', '-512', action='store_true',
                     help='save with 512x512 (Five one two) imaging matrix')
-parser.add_argument('-v', '--version', action='version', version='%(prog)s 0.1')
+parser.add_argument('-v', '--version', action='version', version='%(prog)s 0.11')
 args = parser.parse_args()
 
 start = time.time()
@@ -82,15 +82,20 @@ for root, dirs, files in os.walk('new_dir'):
                 try:
                     ds = dicom.read_file(file_path)
                     pix = ds.pixel_array
+                    try:
+                        pix = pix * ds.RescaleSlope + ds.RescaleIntercept
+                    except:
+                        pass
                     if data_type[0] == '16-bit':
-                        pix = ((pix / np.max(pix)) * 65535).astype(np.uint16)
+                        pix = (((pix - np.min(pix))/ (np.max(pix) - np.min(pix))
+                               ) * 65535).astype(np.uint16)
                         pix = pix.astype(np.uint16)
-                        #
                         save_name = root + "/" + file_name_ + ".png"
                         Image.fromarray(np.uint16(pix)).convert('L').resize(
                             (reso, reso), Image.LANCZOS).save(save_name)
                     else: #data_type[0] == '8-bit'
-                        pix = ((pix / np.max(pix)) * 255).astype(np.uint8)
+                        pix = (((pix - np.min(pix))/ (np.max(pix)-np.min(pix))
+                               ) * 255).astype(np.uint8)
                         if data_type[1] == 'jpg':
                             save_name = root + "/" + file_name_ + ".jpg"
                         else: #elif data_type[1] == 'png':
