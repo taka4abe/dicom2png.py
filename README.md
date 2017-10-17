@@ -6,7 +6,7 @@ help: -h
 
 description:
 
-copying all dicom image files in current directory tree to new dir, named 'new_dir', and chainge these files into png or jpg. DEFAULT: png, 8-bit (0-255) RGB color scale image with 256x256 matrix. 
+copying all dicom image files in current directory tree to new dir, named 'new_dir', and chainge these files into png or jpg. DEFAULT: png, 8-bit (0-255), RGB color scale image with 256x256 matrix. 
 
 this code depending on 
   pydicom, glob, numpy, shutil, time and PIL.
