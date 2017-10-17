@@ -22,8 +22,10 @@ optional arguments:
 
     
 
-説明文:
-current dir 以下に存在するすべての DICOM ファイルを新規ディレクトリー "new_dir" にコピーした上で、png や jpg image file に変換します。
+
+current dir 以下のディレクトリの、全ての DICOM ファイルを新規ディレクトリー "new_dir" にコピーした上で、png または jpg image file に変換します。
+
+このコードは python3.6.1 にて動作確認しました。
 
 このコードは、以下のライブラリに依存しています。
   pydicom, os, numpy, shutil, time and PIL.
