@@ -5,30 +5,32 @@ import numpy as np
 
 parser = argparse.ArgumentParser(
     description='''change all dicom image file in this directory tree to
-    png or jpg. DEFAULT: png, 8-bit (0-255) RGB image with 256x256 matrix (256x256x3 image channel).
+    png or jpg. DEFAULT: png, 8-bit (0-255) RGB image with 256x256 matrix
+    (256x256x3 image channel). This code doesn't support color-map, only
+    save gray scale image.
     This code depends on python3, pydicom, os, numpy, shutil, time and PIL.''',
     usage='dcm2png.py [options]')
-parser.add_argument('-d', '-16', action='store_true',
-                    help='use 16(hexa-Deca)-bit scale, 0-66535. 16-bit image can only go with .png, gray scale image.') # オプションを追加します
+parser.add_argument('-S', '-16', action='store_true',
+                    help='use 16(sixteen)-bit scale, 0-66535. 16-bit image can only go with .png, gray scale image.')
 parser.add_argument('-j', '-jpg', action='store_true',
-                    help='change dicom to jpg') # オプションを追加します
+                    help='change dicom to jpg')
 parser.add_argument('-g', '-gray', action='store_true',
-                    help='use gray scale, one channel') # オプションを追加します
+                    help='use gray scale, one channel')
 parser.add_argument('-t', '-32', action='store_true',
-                    help='save with 32x32 (Thirty-two) imaging matrix') # オプションを追加します
+                    help='save with 32x32 (Thirty-two) imaging matrix')
 parser.add_argument('-s', '-64', action='store_true',
-                    help='save with 64x64 (Sixty-four) imaging matrix') # オプションを追加します
+                    help='save with 64x64 (Sixty-four) imaging matrix')
 parser.add_argument('-o', '-128', action='store_true',
-                    help='save with 128x128 (One two eight) imaging matrix') # オプションを追加します
+                    help='save with 128x128 (One two eight) imaging matrix')
 parser.add_argument('-f', '-512', action='store_true',
-                    help='save with 512x512 (Five one two) imaging matrix') # オプションを追加します
-parser.add_argument('-v', '--version', action='version', version='%(prog)s 0.1') # version
-args = parser.parse_args() # コマンドラインの引数を解釈します
+                    help='save with 512x512 (Five one two) imaging matrix')
+parser.add_argument('-v', '--version', action='version', version='%(prog)s 0.1')
+args = parser.parse_args()
 
 start = time.time()
 data_type, reso = ['8-bit', 'png', 'RGB'], 256
 
-if args.d:
+if args.S:
     data_type[0, 1, 2] = '16-bit', 'png', 'gray_scale'
 elif args.j:
     data_type[1] = 'jpg'
@@ -59,6 +61,8 @@ for root, dirs, files in os.walk(target_dir):
             pass
 
 print('total of {} dicom files'.format(total))
+#import sys
+#sys.exit()
 
 if os.path.exists('new_dir'):
     print("Error!!   Directory 'new_dir' has already existed.")
