@@ -9,8 +9,8 @@ depends on python3, pydicom, os, numpy, shutil, time and PIL.
 
 optional arguments:
   -h, --help     show this help message and exit  
-  -S, -16        use 16(sixteen)-bit scale, 0-66535. 16-bit image can only go  
-                 with .png, gray scale image.  
+  -S, -16        use 16(sixteen)-bit scale, 0-66535. 16-bit image can only go
+                 with .png, gray scale (one-channel) image.  
   -j, -jpg       change dicom to jpg  
   -g, -gray      use gray scale, one channel  
   -t, -32        save with 32x32 (Thirty-two) imaging matrix  
@@ -35,7 +35,7 @@ current dir 以下のディレクトリの、全ての DICOM ファイルを新�
 オプション
 ※：オプションを指定しない場合 8-bit 形式の png ファイル、面内分解能 256x256, 3 channel （256x256x3）で保存します。
 
--S   16ビットで保存します。16ビット画像は、png形式のグレースケールとなります。  
+-S   16ビットで保存します。16ビット画像は、png形式のグレースケール (1 channel 画像) となります。  
 -j   jpg 形式で保存します。  
 -g   チャンネル数 1 （グレースケール）で保存します。チャンネル数は(256, 256, 1)となります。このオプションを入れない場合、RGB 3チャンネルで保存し、チャンネル数は(256, 256, 3)で保存しますが、こちらもグレースケール画像になります。  
 -t   面内分解能 32x32（thirty-two）で保存します。  
