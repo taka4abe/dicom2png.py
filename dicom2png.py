@@ -62,14 +62,6 @@ for root, dirs, files in os.walk(target_dir):
             pass
 
 print('total of {} dicom files'.format(total))
-#import sys
-#sys.exit()
-
-#if os.path.exists(new_dir):
-#    print("Error!!   Directory new_dir has already existed.")
-#    print("Program finished")
-#else:
-#    pass
 
 if os.path.exists(new_dir):
     pass
