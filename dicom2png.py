@@ -4,11 +4,11 @@ from PIL import Image
 import numpy as np
 
 parser = argparse.ArgumentParser(
-    description='''change all dicom image file in this directory tree to
-    png or jpg. DEFAULT: png, 8-bit (0-255) RGB image with 256x256 matrix
-    (256x256x3 image channel). This code doesn't support color-map, only
-    save gray scale image.
-    This code depends on python3, pydicom, os, numpy, shutil, time and PIL.''',
+    description='''change all dicom image file in the "./renamed" directory tree.
+The name of new target dir is png or jpg. DEFAULT: png, 8-bit (0-255) RGB image
+with 256x256 matrix (256x256x3 image channel).
+This code doesn't support color-map, only save gray scale image. This code
+depends on python3, pydicom, os, numpy, shutil, time and PIL.''',
     usage='dcm2png.py [options]')
 parser.add_argument('-S', '-16', action='store_true',
                     help='use 16(sixteen)-bit scale, 0-66535. 16-bit image can only go with .png, gray scale (one-channel) image.')
@@ -141,10 +141,13 @@ for root, dirs, files in os.walk(target_dir):
             pass
 
         n += 1
-        verpose_point = total // 100
+        verpose_point = total // 50
         if n == 10 or n == 20 or n == 50 or n == 100 or n % verpose_point == 0:
             elapsed_time = time.time() - check_point
-            print("{0}/{1} processed,  elapsed/est_total: {2:2.0f}/{3:2.0f} sec".format(n, total, elapsed_time, ((elapsed_time/n)*total)))
+            process_speed = n/elapsed_time
+            print("{0}/{1} processed, {2} files/sec".format(n, total, process_speed))
+            print("elapsed/est_total: {0:2.0f}/{1:2.0f} sec".format(n, total, elapsed_time, ((elapsed_time/n)*total)))
+
 
 elapsed_time = time.time() - start
 print("{0} cases processed with {1:2.0f} sec.".format(n, elapsed_time))
