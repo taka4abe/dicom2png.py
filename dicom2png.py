@@ -11,22 +11,22 @@ This code doesn't support color-map, only save gray scale image. This code
 depends on python3, pydicom, os, numpy, shutil, time and PIL.''',
     usage='dcm2png.py [options]')
 parser.add_argument('-S', '-16', action='store_true',
-                    help='use 16(sixteen)-bit scale, 0-66535. 16-bit image can only go with .png, gray scale (one-channel) image.')
+                    help=': use 16(sixteen)-bit scale, 0-66535. 16-bit image can only go with .png, gray scale (one-channel) image.  ')
 parser.add_argument('-j', '-jpg', action='store_true',
-                    help='change dicom to jpg')
+                    help=': change dicom to jpg  ')
 parser.add_argument('-g', '-gray', action='store_true',
-                    help='use gray scale, one channel')
+                    help=': use gray scale, one channel  ')
 parser.add_argument('-t', '-32', action='store_true',
-                    help='save with 32x32 (Thirty-two) imaging matrix')
+                    help=': save with 32x32 (Thirty-two) imaging matrix  ')
 parser.add_argument('-s', '-64', action='store_true',
-                    help='save with 64x64 (Sixty-four) imaging matrix')
+                    help=': save with 64x64 (Sixty-four) imaging matrix  ')
 parser.add_argument('-o', '-128', action='store_true',
-                    help='save with 128x128 (One two eight) imaging matrix')
+                    help=': save with 128x128 (One two eight) imaging matrix  ')
 parser.add_argument('-f', '-512', action='store_true',
-                    help='save with 512x512 (Five one two) imaging matrix')
-parser.add_argument("-indir", nargs= 1, help="name of dir_tree to collect dicom files")
-parser.add_argument("-outdir", nargs= 1, help="name of dir where png/jpg file is stored")
-parser.add_argument('-v', '--version', action='version', version='%(prog)s 0.2')
+                    help=': save with 512x512 (Five one two) imaging matrix  ')
+parser.add_argument("-indir", nargs= 1, help=": name of dir_tree to collect dicom files, default: './renamed'  ")
+parser.add_argument("-outdir", nargs= 1, help=": name of dir where png/jpg file is stored, default: 'png' or 'jpg'. If there is a directory with the same name, an error occurs.  ")
+parser.add_argument('-v', '--version', action='version', version='%(prog)s 0.21, Oct/21/2017')
 args = parser.parse_args()
 
 start = time.time()
