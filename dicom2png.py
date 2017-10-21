@@ -24,6 +24,8 @@ parser.add_argument('-o', '-128', action='store_true',
                     help='save with 128x128 (One two eight) imaging matrix')
 parser.add_argument('-f', '-512', action='store_true',
                     help='save with 512x512 (Five one two) imaging matrix')
+parser.add_argument("-indir", nargs= 1, help="name of dir_tree to collect dicom files")
+parser.add_argument("-outdir", nargs= 1, help="name of dir where png/jpg file is stored")
 parser.add_argument('-v', '--version', action='version', version='%(prog)s 0.2')
 args = parser.parse_args()
 
@@ -47,10 +49,19 @@ elif args.f:
 
 print('changing dicom to data type:', data_type)
 n, total, sequence_list = 0, 0, []
-target_dir = 'renamed' # defaul target directory
-new_dir = data_type[1]
+try:
+    in_dir = args.indir[0]
+except:
+    in_dir = 'renamed' # defaul target directory
+try:
+    out_dir = args.outdir[0]
+except:
+    out_dir = data_type[1] # 'png' or 'jpg'
 
-for root, dirs, files in os.walk(target_dir):
+print('in_dir is', in_dir)
+print('out_dir is', out_dir)
+
+for root, dirs, files in os.walk(in_dir):
     for file_name in files:
         try:
             file_name_, ext = os.path.splitext(file_name)
@@ -63,19 +74,19 @@ for root, dirs, files in os.walk(target_dir):
 
 print('total of {} dicom files'.format(total))
 
-if os.path.exists(new_dir):
+if os.path.exists(out_dir):
     pass
 else:
-    os.mkdir(new_dir)
+    os.mkdir(out_dir)
 check_point = time.time()
 
-for root, dirs, files in os.walk(target_dir):
+for root, dirs, files in os.walk(in_dir):
     for file_name in files:
         try:
             file_name_, ext = os.path.splitext(file_name)
             if ext == '.dcm':
                 root1, root2 = root.split("/", 1)
-                save_root = "new_dir/" + root2 # file path to save png/jpg file
+                save_root = out_dir + "/" + root2 # file path to save png/jpg file
                 if os.path.exists(save_root):
                     pass
                 else:
@@ -134,11 +145,11 @@ for root, dirs, files in os.walk(target_dir):
 
         n += 1
         verpose_point = total // 50
-        if n == 10 or n == 20 or n == 50 or n == 100 or n % verpose_point == 0:
+        if n == 10 or n == 50 or n % verpose_point == 0:
             elapsed_time = time.time() - check_point
             process_speed = n/elapsed_time
-            print("{0}/{1} processed, {2} files/sec".format(n, total, process_speed))
-            print("elapsed/est_total: {0:2.0f}/{1:2.0f} sec".format(n, total, elapsed_time, ((elapsed_time/n)*total)))
+            print("{0}/{1} converted to {2}, {3:0.0f} files/sec. elapsed/est_total: {4:2.0f}/{5:2.0f} sec ".format(n, total,  data_type[1], process_speed, elapsed_time, ((elapsed_time/n)*total)))
+            print()
 
 
 elapsed_time = time.time() - start
