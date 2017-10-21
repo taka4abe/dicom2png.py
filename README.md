@@ -2,23 +2,31 @@
 
 usage: dcm2png.py [options]
 
-change all dicom image file in the "./renamed" directory tree.
-The name of new target dir is png or jpg. DEFAULT: png, 8-bit (0-255) RGB image
-with 256x256 matrix (256x256x3 image channel).
-This code doesn't support color-map, only save gray scale image. This code
-depends on python3, pydicom, os, numpy, shutil, time and PIL.
+change all dicom image file in the "./renamed" directory tree. The name of new
+target dir is png or jpg. DEFAULT: png, 8-bit (0-255) RGB image with 256x256
+matrix (256x256x3 image channel). This code doesn't support color-map, only
+save gray scale image. This code depends on python3, pydicom, os, numpy,
+shutil, time and PIL.
 
 optional arguments:
-  -h, --help     show this help message and exit  
-  -S, -16        use 16(sixteen)-bit scale, 0-66535. 16-bit image can only go
-                 with .png, gray scale (one-channel) image.  
-  -j, -jpg       change dicom to jpg  
-  -g, -gray      use gray scale, one channel  
-  -t, -32        save with 32x32 (Thirty-two) imaging matrix  
-  -s, -64        save with 64x64 (Sixty-four) imaging matrix  
-  -o, -128       save with 128x128 (One two eight) imaging matrix  
-  -f, -512       save with 512x512 (Five one two) imaging matrix  
-  -v, --version  show program's version number and exit  
+  -h, --help      show this help message and exit
+  -S, -16         use 16(sixteen)-bit scale, 0-66535. 16-bit image can only go
+                  with .png, gray scale (one-channel) image.
+  -j, -jpg        change dicom to jpg
+  -g, -gray       use gray scale, one channel
+  -t, -32         save with 32x32 (Thirty-two) imaging matrix
+  -s, -64         save with 64x64 (Sixty-four) imaging matrix
+  -o, -128        save with 128x128 (One two eight) imaging matrix
+  -f, -512        save with 512x512 (Five one two) imaging matrix
+  -indir INDIR    name of dir_tree to collect dicom files, default:
+                  './renamed'
+  -outdir OUTDIR  name of dir where png/jpg file is stored, default: 'png' or
+                  'jpg'. If there is a directory with the same name, an error
+                  occurs.
+  -v, --version   show program's version number and exit
+
+
+
 
 
     
@@ -49,3 +57,5 @@ jpg はたは png に変換し、新規 dir ("jpg" または "png" ディレク�
 -o   面内分解能 128x128（one two eight）で保存します。  
 -f   面内分解能 512x512（five one two）で保存します。  
 -v   バージョンを表示します。
+-indir  dicom ファイルを収集するディレクトリツリーの基点を指定します。デフォルトは './renamed'
+-outdir  データを保存するディレクトリツリーを指定します。デフォルトは 'png' または 'jpg' になります。すでに同一名称のディレクトリがあるとエラーになります。
