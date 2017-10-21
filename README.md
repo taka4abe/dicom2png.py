@@ -2,8 +2,9 @@
 
 usage: dcm2png.py [options]
 
-change all dicom image file in this directory tree to png or jpg. DEFAULT:
-png, 8-bit (0-255) RGB image with 256x256 matrix (256x256x3 image channel).
+change all dicom image file in the "./renamed" directory tree.
+The name of new target dir is png or jpg. DEFAULT: png, 8-bit (0-255) RGB image
+with 256x256 matrix (256x256x3 image channel).
 This code doesn't support color-map, only save gray scale image. This code
 depends on python3, pydicom, os, numpy, shutil, time and PIL.
 
