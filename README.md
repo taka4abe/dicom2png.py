@@ -23,7 +23,7 @@ optional arguments:
     
 
 
-current dir 以下のディレクトリの、全ての DICOM ファイルを新規ディレクトリー "new_dir" にコピーした上で、png または jpg image file に変換します。
+"./renamed" 以下のディレクトリの dir_tree 構造を保持したまま、全ての dicom ファイルを jpg はたは png に変換し、新規 dir ("jpg" または "png" ディレクトリ)に保存します。
 
 このコードは python3.6.1 にて動作確認しました。
 
