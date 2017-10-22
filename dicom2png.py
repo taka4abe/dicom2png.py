@@ -73,7 +73,7 @@ for root, dirs, files in os.walk(in_dir):
             pass
 
 print('total of {} dicom files'.format(total))
-verpose_point = total // 50
+verpose_point = total // 50 + 1
 
 if os.path.exists(out_dir):
     pass
