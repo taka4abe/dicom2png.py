@@ -73,7 +73,7 @@ for root, dirs, files in os.walk(in_dir):
             pass
 
 print('total of {} dicom files'.format(total))
-verpose_point = total // 50 + 1
+verpose_point = total // 50 +1
 
 if os.path.exists(out_dir):
     pass
@@ -148,7 +148,16 @@ for root, dirs, files in os.walk(in_dir):
         if n == 10 or n == 50 or n % verpose_point == 0:
             elapsed_time = time.time() - check_point
             process_speed = n/elapsed_time
-            print("{0}/{1} converted to {2}, {3:0.0f} files/sec. elapsed/est_total: {4:2.0f}/{5:2.0f} sec ".format(n, total,  data_type[1], process_speed, elapsed_time, ((elapsed_time/n)*total)))
+            est_total = (elapsed_time/n) * total
+            if est_total < 600:
+                print("{0}/{1} converted to {2}, {3:0.0f} files/sec. elapsed/est_total: {4:2.0f}/{5:2.0f} sec ".
+                      format(n, total,  data_type[1], process_speed, elapsed_time, est_total))
+            elif est_total < 4800:
+                print("{0}/{1} converted to {2}, {3:0.0f} files/sec. elapsed/est_total: {4}/{5} min ".
+                      format(n, total,  data_type[1], process_speed, elapsed_time//60, est_total//60))
+            else:
+                print("{0}/{1} converted to {2}, {3:0.0f} files/sec. elapsed/est_total: {4:2.1f}/{5:2.1f} hr ".
+                      format(n, total,  data_type[1], process_speed, elapsed_time/3600, est_total/3600))
             print()
 
 
