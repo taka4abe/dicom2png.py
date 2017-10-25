@@ -73,7 +73,7 @@ for root, dirs, files in os.walk(in_dir):
             pass
 
 print('total of {} dicom files'.format(total))
-verpose_point = total // 50 +1
+n_verbose = total // 50 +1
 
 if os.path.exists(out_dir):
     pass
@@ -145,7 +145,7 @@ for root, dirs, files in os.walk(in_dir):
             pass
 
         n += 1
-        if n == 10 or n == 50 or n % verpose_point == 0:
+        if (n % (n_verbose // 8) + 1 and n < n_verbose) or n % n_verbose == 0:
             elapsed_time = time.time() - check_point
             process_speed = n/elapsed_time
             est_total = (elapsed_time/n) * total
