@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+# get information from png filename
+# this code is thought to be used with dicom2png.py and other repositories (dcm_rename.py?).
+
 import os, time
 print('\ncode started...\n')
 
@@ -41,5 +44,5 @@ for x in save_list:
     f.write(str(x) + "\n")
 f.close()
 
-print("data from {0}/{1} files were collected in {2} sec and saved to {3}.\n\
+print("data from {0}/{1} files were collected in {2} sec \nand saved to {3}.\n\
 finished\n".format(n, total, int(time.time() - start), save_file))
