@@ -1,7 +1,11 @@
 # -*- coding: utf-8 -*-
-import argparse, os, dicom, shutil, time
+import argparse, os, shutil, time
 from PIL import Image
 import numpy as np
+try:
+    import dicom # for version 0.9.9
+except:
+    import pydicom as dicom # for version 1.0 or more
 
 parser = argparse.ArgumentParser(
     description='''change all dicom image file in the "./renamed" directory tree.
